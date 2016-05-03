@@ -1,0 +1,11 @@
+[package]
+name = "rspi-gpio"
+version = "0.1.0"
+authors = ["Sunrin SHIMURA (keen) <3han5chou7@gmail.com>"]
+
+[lib]
+crate-type=["staticlib"]
+
+
+[target.arm-unknown-linux-gnueabi]
+linker = "arm-none-eabi-ld"
