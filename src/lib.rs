@@ -2,7 +2,7 @@
 #![no_std]
 use core::intrinsics::volatile_store;
 
-mod gpio;
+pub mod gpio;
 #[no_mangle]
 pub extern fn main() {
     use gpio::*;
@@ -39,17 +39,17 @@ pub extern fn main() {
 
 
 #[no_mangle]
-pub extern fn _sbrk() {}
+pub extern fn _sbrk() -> isize { return -1;}
 #[no_mangle]
-pub extern fn _exit() {}
+pub extern fn _exit() -> isize { return -1;}
 #[no_mangle]
-pub extern fn _kill() {}
+pub extern fn _kill() -> isize { return -1;}
 #[no_mangle]
-pub extern fn _getpid() {}
+pub extern fn _getpid() -> isize { return -1;}
 
 
 #[lang = "eh_personality"]
 extern fn eh_personality() {}
 
 #[lang = "panic_fmt"]
-extern fn panic_fmt() {}
+extern fn panic_fmt() -> ! {loop{}}
