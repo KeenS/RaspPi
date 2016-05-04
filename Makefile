@@ -14,9 +14,6 @@ all: $(kernel)
 clean:
 	@rm -r build
 
-run: $(kernel)
-	@qemu-system-x86_64 -cdrom $(iso)
-
 
 $(kernel): cargo $(rust_lib)
 	@mkdir -p $(build_dir)
@@ -24,8 +21,4 @@ $(kernel): cargo $(rust_lib)
 	@$(xobjcopy) $(build_dir)/kernel.elf -O binary $(kernel)
 
 cargo:
-	@cargo rustc --target $(target) -- --emit=obj -Z no-landing-pads  -C lto -C opt-level=3
-
-build/arch/$(arch)/%.o: src/arch/$(arch)/%.asm
-	@mkdir -p $(shell dirname $@)
-	@nasm -felf64 $< -o $@
+	@cargo rustc --target $(target) -- --emit=obj -O
